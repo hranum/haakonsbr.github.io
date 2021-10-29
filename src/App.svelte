@@ -1,5 +1,5 @@
 <script>
-  import StationList from './lib/List.svelte'
+  import StationList from './lib/Stations.svelte'
 </script>
 
 <main>

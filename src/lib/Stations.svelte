@@ -134,8 +134,10 @@
    *
    */
   onMount(async () => {
-    updateStationsInterval = setInterval(updateStations, 3 * 1000);
-    updatePositionInterval = setInterval(updatePosition, 1000);
+    updateStations();
+    updatePosition();
+    updateStationsInterval = setInterval(updateStations, 10 * 1000);
+    updatePositionInterval = setInterval(updatePosition, 10 * 1000);
 	});
 
 </script>
@@ -197,11 +199,12 @@
 
 <style lang="scss">
   .loader {
-    margin-top: 4em;
+    padding-top: 4em;
     text-align: center;
-
+    margin: 0 auto;
     img {
       width: 100%;
+      max-width: 500px;
     }
   }
 
