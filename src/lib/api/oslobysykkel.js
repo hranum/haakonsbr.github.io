@@ -118,7 +118,7 @@ const getStationInformation = async () => {
  * }>>}
  */
 const getStationStatuses = async () => {
-  const lastUpdatedModifier = 10 * 60;
+  const lastUpdatedModifier = 10;
   const cacheKey = 'station_status';
   const stationStatusCache = readCache(cacheKey);
   if (!stationStatusCache) {
