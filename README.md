@@ -47,3 +47,8 @@ Simulate the location of the device by pushing any of first three buttons.
 
 Simulate API unresponsiveness / errors by toggling the last button.
 
+## Disclaimer
+
+No i18n has been implemented. Decided to make it simple starting of with the NO locale.
+
+The "simulation buttons" has not been optimized and might hog resources and/or even block other DOM events while being executed.
