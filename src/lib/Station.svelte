@@ -3,7 +3,7 @@
   import mapBg from '../assets/map.png';
   import { DateTime } from 'luxon';
 
-	export let name;
+  export let name;
   export let docks_available;
   export let bike_available;
   export let is_renting;
@@ -54,7 +54,7 @@
           accepting returns
         {/if}
       {/if}
-      
+
       {#if last_status}
         Sist oppdatert {DateTime.fromSeconds(last_status).setLocale('no').toRelative('minutes')}
       {/if}
@@ -83,7 +83,7 @@
     border-radius: 5px;
   }
 
-	.station {
+  .station {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -93,7 +93,7 @@
     -webkit-box-shadow: 5px 5px 15px 5px #E8E8E8; 
     box-shadow: 5px 5px 15px 5px #efefef;
     border: 1px solid #efefef;
-	}
+  }
 
   .info {
     text-align: left;

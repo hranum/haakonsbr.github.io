@@ -138,7 +138,7 @@
     updatePosition();
     updateStationsInterval = setInterval(updateStations, 10 * 1000);
     updatePositionInterval = setInterval(updatePosition, 10 * 1000);
-	});
+  });
 
 </script>
 
