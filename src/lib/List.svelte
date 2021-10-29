@@ -64,12 +64,15 @@
     if (!overrideDevicePosition) {
       try {
         navigator.geolocation.getCurrentPosition((position) => {
+          positionError = null;
           _latitude = position.coords.latitude;
           _longitude = position.coords.longitude;
         }, (e) => {
           if (e.message === 'User denied Geolocation') {
             positionError = `Vi får desverre ikke vist deg de nærmeste stasjonene fordi du ikke har 
               godkjent at vi kan se din posisjon! Her får du likevel se alle stasjoner med utgangspunkt fra Olaf Ryes Plass!`
+          } else {
+            // @todo implement log metrics to identify possibly new error messages to handle
           }
         });
       } catch (e) {
