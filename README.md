@@ -3,11 +3,10 @@
 
 > Simple GBFS (General Bikeshare Feed Specification) consumer application for Oslo Bysykkel station data.
 
-[![Under Development](https://img.shields.io/badge/under-development-orange.svg)](https://github.com/cez-aug/github-project-boilerplate) [![Public Domain](https://img.shields.io/badge/public-domain-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
-
 > The application is written in JavaScript using Svelte for providing a reactive interface for displaying available bikes and docks. 
-
-<br>
+<br><br>
+> You can view the application directly here: [https://haakonsbr.github.io/](https://haakonsbr.github.io/)
+<br><br><br><br><br>
 
 ## Installing
 
@@ -16,6 +15,9 @@
 
 $ npm install
 
+# If you'd rather view this application right away you can open this url
+
+https://haakonsbr.github.io/
 ```
 
 ## Usage
