@@ -6,7 +6,7 @@
 > The application is written in JavaScript using Svelte for providing a reactive interface for displaying available bikes and docks. 
 <br><br>
 > You can view the application directly here: [https://haakonsbr.github.io/](https://haakonsbr.github.io/)
-<br><br><br><br><br>
+<br>
 
 ## Installing
 
@@ -28,7 +28,16 @@ $ npm run dev # -- --host (if unable to connect)
 
 You should see something like this:
 
-<img style="display: inline-block;" src="doc/vite-dev.png" align="left" vspace="10"/>
+```sh
+
+  vite v2.6.11 dev server running at:
+
+  > Local:    http://localhost:3000/
+  > Network:  http://172.17.157.173:3000/
+
+  ready in 872ms.
+
+```
 
 Open the ``Local`` link in your browser or ``Network`` if you did ``npm run dev -- --host``
 
