@@ -30,7 +30,7 @@ const fetchData = async (url, opts = {}, retryAttempts = 0, timeStarted = 0) => 
   // Merge provided options with default options
   const requestConfig = {...{
     baseURL: 'https://gbfs.urbansharing.com/oslobysykkel.no/',
-    headers: {'Client-Identifier': 'foobar'},
+    headers: {'Client-Identifier': 'haakonranum-demoapp'},
     url,
     method: 'get',
     timeout: 1500,
