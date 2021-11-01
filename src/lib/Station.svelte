@@ -43,15 +43,15 @@
 
     <div class="bottom">
       {#if !is_renting || !is_returning}
-        This station is currently not
+        Denne stasjonen har for øyeblikket ikke
         {#if !is_renting}
-          renting out bikes 
+          sykler som kan hentes
           {#if !is_returning}
-            or
+            eller
           {/if} 
         {/if}
         {#if !is_returning}
-          accepting returns
+          åpent for retur av sykkel
         {/if}
       {/if}
 
