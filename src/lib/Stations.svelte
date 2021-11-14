@@ -2,6 +2,8 @@
   import {onMount} from 'svelte';
   import {getRhumbLineBearing, getDistance} from 'geolib';
   import {getStationData} from './api/oslobysykkel';
+  import {slide} from 'svelte/transition';
+  import {quintOut} from 'svelte/easing';
 
   /* Image assets */
   import oops from '../assets/oops.png';
@@ -9,6 +11,7 @@
 
   /* Components */
   import Station from './Station.svelte';
+  import Map from './Map.svelte'
 
   let errorMessages = [
     {
@@ -54,6 +57,8 @@
         return station;
       }
     }) : [];
+
+    let showMap = false;
 
   /**
    * If user has accepted location sharing the position will be set from the coordinates
@@ -138,6 +143,14 @@
     updatePosition();
     updateStationsInterval = setInterval(updateStations, 10 * 1000);
     updatePositionInterval = setInterval(updatePosition, 10 * 1000);
+
+    // setInterval(() => {
+    //   stations = stations.map((station) => {
+    //     station.num_bikes_available = Math.round(Math.random(1,40));
+    //     return station;
+    //   });
+    // }, 4000);
+
   });
 
 </script>
@@ -154,9 +167,26 @@
   </div>
 </div>
 
+{#if showMap}
+	<div transition:slide="{{delay: 250, duration: 300, easing: quintOut }}">
+    <Map 
+      stations={stations}
+      latitude={_latitude}
+      longitude={_longitude}
+    />
+	</div>
+{/if}
+
 <div id="navigation">
   <div class="button bike" on:click={() => filterBy = 'bikes'}>Vis meg ledige sykler</div>
   <div class="button dock" on:click={() => filterBy = 'docks'}>Vis meg ledige stativ</div>
+  <div class="button toggle-map" on:click={() => showMap = !showMap}>
+    {#if !showMap}
+      Åpne kartet
+    {:else}
+      Lukk kartet
+    {/if}
+  </div>
 </div>
 
 {#if positionError}
@@ -272,6 +302,10 @@
     div.bike {
       background-color: #a4cfa0;
       margin: 0 auto;
+    }
+
+    div.toggle-map {
+      background-color: rgba(52, 172, 224, 0.5);
     }
   }
 </style>
