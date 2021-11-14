@@ -2,8 +2,9 @@
   import {onMount} from 'svelte';
   import {getRhumbLineBearing, getDistance} from 'geolib';
   import {getStationData} from './api/oslobysykkel';
-  import { slide } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
+  import {slide} from 'svelte/transition';
+  import {quintOut} from 'svelte/easing';
+
   /* Image assets */
   import oops from '../assets/oops.png';
   import loader from '../assets/bike-loader.gif';
@@ -168,7 +169,7 @@
 
 {#if showMap}
 	<div transition:slide="{{delay: 250, duration: 300, easing: quintOut }}">
-		<Map 
+    <Map 
       stations={stations}
       latitude={_latitude}
       longitude={_longitude}
