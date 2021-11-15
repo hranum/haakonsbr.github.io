@@ -3,24 +3,60 @@
   "version": "0.0.1",
   "type": "module",
   "author": "Haakon Ranum <haakon.ranum@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build && cp -r dist/* docs/",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "jest src",
+    "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.0",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.11",
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/svelte": "^3.0.3",
+    "axios-mock-adapter": "^1.20.0",
+    "babel-jest": "^27.3.1",
     "eslint": "^8.1.0",
     "eslint-config-google": "^0.14.0",
-    "svelte": "^3.37.0",
-    "vite": "^2.6.4",
+    "jest": "^27.3.1",
+    "jest-extended": "^1.1.0",
+    "jest-localstorage-mock": "^2.4.18",
     "sass": "^1.43.4",
-    "svelte-preprocess": "^4.9.8"
+    "svelte": "^3.37.0",
+    "svelte-jester": "^2.1.5",
+    "svelte-preprocess": "^4.9.8",
+    "vite": "^2.6.4"
   },
   "dependencies": {
     "axios": "^0.24.0",
     "geolib": "^3.3.3",
     "luxon": "^2.0.2"
   },
-  "license": "MIT"
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.svelte$": ["svelte-jester", { "preprocess": true }],
+      "^.+\\.svg$": "<rootDir>/transformers/svgTransform.js",
+      "^.+\\.png$": "<rootDir>/transformers/pngTransform.js",
+      "^.+\\.gif$": "<rootDir>/transformers/gifTransform.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "svelte"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect",
+      "jest-localstorage-mock",
+      "jest-extended/all"
+    ],
+    "watchPathIgnorePatterns": [
+      "node_modules"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "resetMocks": false
+  }
 }

@@ -1,7 +1,7 @@
 <script>
   import {onMount} from 'svelte';
   import {getRhumbLineBearing, getDistance} from 'geolib';
-  import {getStationData} from './api/oslobysykkel';
+  import oslobysykkel from './api/oslobysykkel';
   import {slide} from 'svelte/transition';
   import {quintOut} from 'svelte/easing';
 
@@ -82,7 +82,7 @@
         });
       } catch (e) {
         // @todo implement log metrics
-        error = errorMessages[0].message;
+        //error = errorMessages[0].message;
       }
     }
   };
@@ -118,7 +118,7 @@
       if (toggleError) {
         throw Error();
       }
-      stations = await getStationData();
+      stations = await oslobysykkel.getStationData();
     } catch (e) {
       clearInterval(updateStationsInterval);
       error = errorMessages[1].message;
@@ -168,7 +168,7 @@
 </div>
 
 {#if showMap}
-	<div transition:slide="{{delay: 250, duration: 300, easing: quintOut }}">
+	<div id="map-container" data-testid="map-container" transition:slide="{{delay: 250, duration: 300, easing: quintOut }}">
     <Map 
       stations={stations}
       latitude={_latitude}
@@ -180,7 +180,7 @@
 <div id="navigation">
   <div class="button bike" on:click={() => filterBy = 'bikes'}>Vis meg ledige sykler</div>
   <div class="button dock" on:click={() => filterBy = 'docks'}>Vis meg ledige stativ</div>
-  <div class="button toggle-map" on:click={() => showMap = !showMap}>
+  <div class="button toggle-map" data-testid="toggle-map" on:click={() => showMap = !showMap}>
     {#if !showMap}
       Åpne kartet
     {:else}
@@ -196,12 +196,12 @@
 {/if}
 
 {#if error}
-  <div id="error-container">
+  <div id="error-container" data-testid="error-container">
     <img src={oops} alt="Error illustration"/>
     <p>{error}</p>
   </div>
 {:else}
-  <div id="stations">
+  <div id="stations" data-testid="stations-list">
     {#if stations.length > 0}
     {#each mappedStations.sort((a, b) => a.distance - b.distance) as station (station.station_id)}
       <Station 
@@ -219,7 +219,7 @@
       />
     {/each}
     {:else}
-      <div class="loader">
+      <div class="loader" data-testid="loader">
         <img src={loader} alt="Loading gif" />
         <p>Laster inn sykler og stativer :-)</p>
       </div>

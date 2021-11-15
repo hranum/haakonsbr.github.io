@@ -6,13 +6,20 @@
   export let stations;
 
   let map;
+  let error;
 
   // Public token, ok to leave it in source control.
   const mapboxToken = 'pk.eyJ1IjoiaHJhbnVtIiwiYSI6ImNrdnpjODR1azA0YngycXBxZHdsb2VoNWkifQ.HDk5Dp_1C7jidRvKIYkz0w';
 
-  /**
-   * Create one MapBox instance that will be mounted in the #map element. It is initialzed with current coordinates of the user.
-   */
+   /**
+    * Create one MapBox instance that will be mounted in the #map element. It is initialzed with 
+    * current coordinates of the device so the map will be centered on the device. It is also
+    * calling the updatePositionMarker function to update the position marker on the map.
+    *
+    * @param {Number} longitude
+    * @param {Number} latitude
+    * @return {void}
+    */
   const createMapbox = (longitude, latitude) => {
     mapboxgl.accessToken = mapboxToken;
     map = new mapboxgl.Map({
@@ -36,9 +43,11 @@
    *
    * @param {number} longitude
    * @param {number} latitude
+   * @return {void}
    */
   const updatePositionMarker = (longitude, latitude) => {
     if (!userMarker) {
+      // Create a new MapBox marker for the position of the device.
       const dot = document.createElement("div");
       dot.className = 'dot';
 
@@ -46,6 +55,7 @@
       markerEl.className = 'device-location';
       markerEl.appendChild(dot);
 
+      // Store marker so we can update / reference it later.
       userMarker = new mapboxgl.Marker(markerEl).setLngLat([longitude, latitude]).addTo(map);
     } else {
       userMarker.setLngLat([longitude, latitude]);
@@ -59,10 +69,12 @@
    * @param {number} bikes bikes available
    * @param {number} docks docks available
    * @param {Array<{number, number}>} coordinates given as [longitude, latitude]
+   * @return {void}
    */
   const updateMapMarker = (name, bikes, docks, coordinates) => {
     let marker = markers.get(name);
     if (!marker) {
+      // Create an spaghetHTML element and add it to mapboxgl. Populate count of bike/dock availability.
       const bikesEl = document.createElement("span");
       bikesEl.className = 'bikes';
       bikesEl.textContent = bikes;
@@ -78,10 +90,13 @@
       markerEl.appendChild(docksEl);
 
       const mapMarker = new mapboxgl.Marker(markerEl).setLngLat(coordinates).addTo(map);
+
+      // Store marker in Map so we can update / reference it later.
       marker = {markerEl, bikesEl, docksEl, mapMarker};
       markers.set(name, marker);
     }
 
+    // Update the count of bikes and docks available.
     marker.bikesEl.textContent = bikes;
     marker.docksEl.textContent = docks;
   };
@@ -101,18 +116,30 @@
   }
 
   onMount(async () => {
-    createMapbox(longitude, latitude);
+    /**
+     * @todo Instead of CDN, implement https://www.npmjs.com/package/mapbox-gl so we can test MapBox interaction
+     * and ship without external dependency.
+     */
+    try {
+      createMapbox(longitude, latitude);
+    } catch (e) {
+      error = true;
+    }
   });
 
 </script>
 
 <div id="map">
-  Laster kartet ...
+  {#if error}
+    <span data-testid="map-error-message">En feil oppstod ved innlasting av kartet.</span>
+  {:else}
+    Laster kartet ...
+  {/if}
 </div>
 
 <style lang="scss">
   #map {
-    height: 300px;
+    height: 50vh;
     width: 100%;
 
     :global.device-location {
