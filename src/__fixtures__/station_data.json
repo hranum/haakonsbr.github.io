@@ -1,0 +1,36 @@
+[
+  {
+    "station_id": "2315",
+    "name": "Rostockgata",
+    "address": "Rostockgata 5",
+    "lat": 59.90691970255054,
+    "lon": 10.760311802881915,
+    "capacity": 18,
+    "status": {
+      "station_id": "2315",
+      "is_installed": 1,
+      "is_renting": 1,
+      "is_returning": 1,
+      "last_reported": 1636914351,
+      "num_bikes_available": 13,
+      "num_docks_available": 3
+    }
+  },
+  {
+    "station_id": "2309",
+    "name": "Ulven Torg",
+    "address": "Ulvenveien 89",
+    "lat": 59.92503517848644,
+    "lon": 10.81202182917832,
+    "capacity": 30,
+    "status": {
+      "station_id": "2309",
+      "is_installed": 1,
+      "is_renting": 1,
+      "is_returning": 1,
+      "last_reported": 1636914351,
+      "num_bikes_available": 24,
+      "num_docks_available": 6
+    }
+  }
+]

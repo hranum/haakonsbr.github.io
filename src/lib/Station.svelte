@@ -16,22 +16,24 @@
   export let filterBy;
 
   // Provide the distance to a station in kilometers when more than 1000 meters away.
-  $: humanDistance = distance > 1000 ? Math.ceil(distance / 1000) + ' km' : distance + ' meter';
+  $: humanDistance = distance > 1000 ? (distance / 1000).toFixed(1) + ' km' : distance + ' meter';
 
 </script>
 
 {#if !filterBy || (filterBy === 'docks' && docks_available > 0) || (filterBy === 'bikes' && bike_available > 0)}
-<div class="station border-radius-5">
+<div class="station border-radius-5" data-testid="station">
   <div class="info">
     <div class="top">
       <div class="availability">
-        <div 
+        <div
+          data-testid="bikes-available"
           class:is_not_renting={!is_renting}
           class="bikes border-radius-5">
           {is_renting ? bike_available : 0}
         </div>
 
         <div 
+          data-testid="docks-available"
           class:is_not_returning={!is_returning}
           class="docks border-radius-5">
           {is_returning ? docks_available : 0}
@@ -43,32 +45,33 @@
 
     <div class="bottom">
       {#if !is_renting || !is_returning}
-        Denne stasjonen har for øyeblikket ikke
+        <span data-testid="renting-or-returning-status">Denne stasjonen har for øyeblikket ikke</span>
         {#if !is_renting}
-          sykler som kan hentes
+        <span data-testid="is-not-renting">sykler som kan hentes</span>
           {#if !is_returning}
-            eller
+          <span data-testid="is-not-returning-1">eller</span>
           {/if} 
         {/if}
         {#if !is_returning}
-          åpent for retur av sykkel
+        <span data-testid="is-not-returning-2">åpent for retur av sykkel</span>
         {/if}
       {/if}
 
       {#if last_status}
-        Sist oppdatert {DateTime.fromSeconds(last_status).setLocale('no').toRelative('minutes')}
+        <span>Sist oppdatert {DateTime.fromSeconds(last_status).setLocale('no').toRelative('minutes')}</span>
       {/if}
     </div>
   </div>
 
   <div class="navigator">
     <img class="arrow" src="{arrow}" style="transform: rotate({direction}deg);" alt="Direction"/>
-    <div class="distance">
+    <div class="distance" data-testid="distance">
       {humanDistance}
     </div>
   </div>
 
   <div 
+    data-testid="map-link"
     title="Åpne stasjonen i Google Maps"
     on:click="{() => window.open(`http://www.google.com/maps/place/${latitude},${longitude}`)}"
     class="map" style="background-image: url({mapBg})">
