@@ -41,6 +41,12 @@ You should see something like this:
 
 Open the ``Local`` link in your browser or ``Network`` if you did ``npm run dev -- --host``
 
+## Tests
+```sh
+$ npm run test
+$ npm run test:watch
+```
+
 ## Simulation tool
 
 Simulate the location of the device by pushing any of first three buttons.
