@@ -5,7 +5,7 @@
 
 > The application is written in JavaScript using Svelte for providing a reactive interface for displaying available bikes and docks. 
 <br><br>
-> You can view the application directly here: [https://haakonsbr.github.io/](https://haakonsbr.github.io/)
+> You can view the application directly here: [https://hranum.github.io/haakonsbr.github.io/](https://hranum.github.io/haakonsbr.github.io/)
 <br>
 
 ## Installing
@@ -17,7 +17,7 @@ $ npm install
 
 # If you'd rather view this application right away you can open this url
 
-https://haakonsbr.github.io/
+https://hranum.github.io/haakonsbr.github.io/
 ```
 
 ## Usage
